@@ -1,3 +1,5 @@
+require 'pry'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -127,3 +129,78 @@ def game_hash
 end
 
 # Write code here
+
+
+
+def num_points_scored(name_of_player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |attribute|
+      if attribute[:player_name]==name_of_player
+        return attribute[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(name_of_player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |attribute|
+      if attribute[:player_name]==name_of_player
+        return attribute[:shoe]
+      end
+    end
+  end
+end
+
+# def num_points_scored(player)
+#   # game_hash.each{|key, value|}
+#   # on a hash with each, we can target key,value pairs with ||
+#   game_hash.each{|team, teaminfo|
+#     # teaminfo.each{|info, data| but we don't need to iterate through teaminfo, just the array of players
+#     teaminfo[:players].each{|player_info|
+#       if player_info[:player_name] == player
+#         return player_info[:points]
+#       end
+#     }
+#   }
+# end
+
+
+def find_team(team)
+  team_info = game_hash.find do |location, team_data|
+    team_data[:team_name] == team
+  end
+    team_info[1]
+end
+
+def team_colors(team_name)
+  team = find_team(team_name)
+  team[:colors]
+end
+
+def team_names
+  team_info = game_hash.map do |location, team_data|
+    team_data[:team_name]
+  end
+end
+
+def player_numbers(name_of_team) #returns an array
+  game_hash.each do |team,info|
+    if info[:team_name] == name_of_team
+      # if the team_name in info is equal to name of team in argument, return players mapped where we get an array of all the numbers of the players in the team
+      return info[:players].map do |p|
+        p[:number]
+      end
+    end
+  end
+end
+
+def player_stats(name_of_player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |attribute|
+      if attribute[:player_name] == name_of_player
+        return attribute
+      end 
+    end
+  end
+end
